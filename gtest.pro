@@ -4,6 +4,8 @@
 
 TEMPLATE = lib
 TARGET = gtest
+CONFIG += qt
+QT += core
 
 include(../../proof.pri)
 
@@ -35,7 +37,8 @@ HEADERS += gtest-death-test.h \
            internal/gtest-port.h \
            internal/gtest-string.h \
            internal/gtest-tuple.h \
-           internal/gtest-type-util.h
+           internal/gtest-type-util.h \
+           test_global.h
 SOURCES += gtest-all.cc \
            gtest-death-test.cc \
            gtest-filepath.cc \
@@ -43,4 +46,5 @@ SOURCES += gtest-all.cc \
            gtest-printers.cc \
            gtest-test-part.cc \
            gtest-typed-test.cc \
-           gtest.cc
+           gtest.cc \
+    test_global.cpp
