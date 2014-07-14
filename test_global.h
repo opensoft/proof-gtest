@@ -21,6 +21,7 @@ public:
     void runServer();
     void setServerAnswer(const QByteArray &answer);
     bool serverIsRunning() const;
+    QByteArray lastQuery() const;
 
 private:
     void stopServer();

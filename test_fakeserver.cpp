@@ -10,9 +10,8 @@ FakeServer::FakeServer(int port)
 
 void FakeServer::startListen()
 {
-    if (!isListening()) {
+    if (!isListening())
         listen(QHostAddress::Any, m_port);
-    }
 }
 
 void FakeServer::stopListen()
@@ -23,6 +22,11 @@ void FakeServer::stopListen()
 void FakeServer::setRawAnswer(const QByteArray &rawAnswer)
 {
     m_rawAnswer = rawAnswer;
+}
+
+QByteArray FakeServer::lastQuery() const
+{
+    return m_lastQuery;
 }
 
 void FakeServer::createNewConnection()
@@ -42,9 +46,10 @@ void FakeServer::removeConnection()
 
 void FakeServer::sendData()
 {
-    QTcpSocket* socket = (QTcpSocket*)sender();
-    if (socket->canReadLine()) {
-        QStringList tokens = QString(socket->readLine()).split(QRegExp("[ \r\n][ \r\n]*"));
+    QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+    if (socket && socket->canReadLine()) {
+        QByteArray line = socket->readLine();
+        QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
         if (tokens[0] == "GET" || tokens[0] == "POST") {
             QTextStream os(socket);
             os.setAutoDetectUnicode(true);
@@ -52,11 +57,13 @@ void FakeServer::sendData()
                   "Content-Type: text/json; charset=\"utf-8\"\r\n"
                   "\r\n"
                << m_rawAnswer << "\n";
+            line.append(socket->readAll());
             socket->close();
 
             if (socket->state() == QTcpSocket::UnconnectedState) {
                 delete socket;
             }
+            m_lastQuery = line;
         }
     }
 }

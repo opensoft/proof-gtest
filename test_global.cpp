@@ -40,6 +40,11 @@ bool FakeServerRunner::serverIsRunning() const
     return m_server->isListening();
 }
 
+QByteArray FakeServerRunner::lastQuery () const
+{
+    return m_server->lastQuery();
+}
+
 void FakeServerRunner::stopServer()
 {
     QMetaObject::invokeMethod(m_server, "stopListen", Qt::QueuedConnection);

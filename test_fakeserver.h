@@ -13,6 +13,7 @@ public slots:
     void startListen();
     void stopListen();
     void setRawAnswer(const QByteArray &rawAnswer);
+    QByteArray lastQuery() const;
 
 private slots:
     void createNewConnection();
@@ -22,6 +23,7 @@ private slots:
 private:
     int m_port;
     QByteArray m_rawAnswer;
+    QByteArray m_lastQuery;
 };
 
 #endif // TEST_FAKESERVER_H
