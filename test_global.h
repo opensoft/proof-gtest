@@ -8,10 +8,12 @@ class QByteArray;
 class QThread;
 class FakeServer;
 class QJsonDocument;
+
 //Methods for pretty printing Qt class'es values
-
 void PrintTo(const QString& str, ::std::ostream* os);
+void PrintTo(const QByteArray& str, ::std::ostream* os);
 
+//Fake Server Runner class
 class FakeServerRunner {
 
 public:

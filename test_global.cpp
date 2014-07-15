@@ -2,12 +2,18 @@
 #include "test_fakeserver.h"
 
 #include <QString>
+#include <QByteArray>
 #include <QMetaObject>
 #include <QThread>
 
 void PrintTo(const QString& str, ::std::ostream* os)
 {
     *os << "\"" << str.toStdString() << "\"";
+}
+
+void PrintTo(const QByteArray& str, ::std::ostream* os)
+{
+    *os << "\"" << str.constData() << "\"";
 }
 
 FakeServerRunner::FakeServerRunner(int port)

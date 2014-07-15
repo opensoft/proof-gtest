@@ -57,7 +57,14 @@ void FakeServer::sendData()
                   "Content-Type: text/json; charset=\"utf-8\"\r\n"
                   "\r\n"
                << m_rawAnswer << "\n";
-            line.append(socket->readAll());
+
+            forever {
+                QByteArray read = socket->read(1024);
+                if (read.isEmpty() && !socket->waitForReadyRead(100))
+                    break;
+                line.append(read);
+            }
+
             socket->close();
 
             if (socket->state() == QTcpSocket::UnconnectedState) {
