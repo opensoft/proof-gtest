@@ -28,6 +28,11 @@ FakeServerRunner::~FakeServerRunner()
 void FakeServerRunner::runServer()
 {
     QMetaObject::invokeMethod(m_server, "startListen", Qt::QueuedConnection);
+    int i = 0;
+    while (!serverIsRunning() && i < 10000) {
+        QThread::yieldCurrentThread();
+        ++i;
+    }
 }
 
 void FakeServerRunner::setServerAnswer(const QByteArray &answer)
