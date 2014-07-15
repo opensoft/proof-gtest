@@ -32,7 +32,7 @@ QByteArray FakeServer::lastQuery() const
 void FakeServer::createNewConnection()
 {
     if (hasPendingConnections()) {
-        QTcpSocket* socket = nextPendingConnection();
+        QTcpSocket *socket = nextPendingConnection();
         connect(socket, &QTcpSocket::readyRead, this, &FakeServer::sendData);
         connect(socket, &QTcpSocket::disconnected, this, &FakeServer::removeConnection);
     }
@@ -40,7 +40,7 @@ void FakeServer::createNewConnection()
 
 void FakeServer::removeConnection()
 {
-    QTcpSocket* socket = qobject_cast<QTcpSocket *>(sender());
+    QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
     socket->deleteLater();
 }
 
