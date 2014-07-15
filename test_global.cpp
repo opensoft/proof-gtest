@@ -27,12 +27,7 @@ FakeServerRunner::~FakeServerRunner()
 
 void FakeServerRunner::runServer()
 {
-    QMetaObject::invokeMethod(m_server, "startListen", Qt::QueuedConnection);
-    int i = 0;
-    while (!serverIsRunning() && i < 10000) {
-        QThread::yieldCurrentThread();
-        ++i;
-    }
+    QMetaObject::invokeMethod(m_server, "startListen", Qt::BlockingQueuedConnection);
 }
 
 void FakeServerRunner::setServerAnswer(const QByteArray &answer)
@@ -45,7 +40,7 @@ bool FakeServerRunner::serverIsRunning() const
     return m_server->isListening();
 }
 
-QByteArray FakeServerRunner::lastQuery () const
+QByteArray FakeServerRunner::lastQuery() const
 {
     return m_server->lastQuery();
 }

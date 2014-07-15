@@ -33,14 +33,14 @@ void FakeServer::createNewConnection()
 {
     if (hasPendingConnections()) {
         QTcpSocket* socket = nextPendingConnection();
-        connect(socket, SIGNAL(readyRead()), this, SLOT(sendData()));
-        connect(socket, SIGNAL(disconnected()), this, SLOT(removeConnection()));
+        connect(socket, &QTcpSocket::readyRead, this, &FakeServer::sendData);
+        connect(socket, &QTcpSocket::disconnected, this, &FakeServer::removeConnection);
     }
 }
 
 void FakeServer::removeConnection()
 {
-    QTcpSocket* socket = (QTcpSocket*)sender();
+    QTcpSocket* socket = qobject_cast<QTcpSocket *>(sender());
     socket->deleteLater();
 }
 
