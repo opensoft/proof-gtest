@@ -38,12 +38,17 @@ void FakeServerRunner::runServer()
 
 void FakeServerRunner::setServerAnswer(const QByteArray &answer)
 {
-    m_server->setRawAnswer(answer);
+    m_server->setAnswerBody(answer);
 }
 
 bool FakeServerRunner::serverIsRunning() const
 {
     return m_server->isListening();
+}
+
+void FakeServerRunner::setResultCode(int code, const QByteArray &reasonPhrase)
+{
+    m_server->setResultCode(code, reasonPhrase);
 }
 
 QByteArray FakeServerRunner::lastQuery() const

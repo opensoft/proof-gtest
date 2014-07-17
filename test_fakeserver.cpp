@@ -3,8 +3,10 @@
 #include <QTcpSocket>
 
 FakeServer::FakeServer(int port)
+    : m_port(port),
+      m_returnCode(200),
+      m_reasonPhrase("OK")
 {
-    m_port = port;
     connect(this, &FakeServer::newConnection, this, &FakeServer::createNewConnection);
 }
 
@@ -19,9 +21,15 @@ void FakeServer::stopListen()
     close();
 }
 
-void FakeServer::setRawAnswer(const QByteArray &rawAnswer)
+void FakeServer::setAnswerBody(const QByteArray &rawAnswer)
 {
-    m_rawAnswer = rawAnswer;
+    m_answerBody = rawAnswer;
+}
+
+void FakeServer::setResultCode(int code, const QByteArray &reasonPhrase)
+{
+    m_returnCode = code;
+    m_reasonPhrase = reasonPhrase;
 }
 
 QByteArray FakeServer::lastQuery() const
@@ -53,10 +61,10 @@ void FakeServer::sendData()
         if (tokens[0] == "GET" || tokens[0] == "POST") {
             QTextStream os(socket);
             os.setAutoDetectUnicode(true);
-            os << "HTTP/1.0 200 Ok\r\n"
+            os << QString("HTTP/1.0 %1 %2\r\n"
                   "Content-Type: text/json; charset=\"utf-8\"\r\n"
-                  "\r\n"
-               << m_rawAnswer << "\n";
+                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData())
+               << m_answerBody << "\n";
 
             forever {
                 QByteArray read = socket->read(1024);

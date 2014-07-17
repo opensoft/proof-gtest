@@ -23,6 +23,7 @@ public:
     void runServer();
     void setServerAnswer(const QByteArray &answer);
     bool serverIsRunning() const;
+    void setResultCode(int code, const QByteArray &reasonPhrase);
     QByteArray lastQuery() const;
 
 private:
