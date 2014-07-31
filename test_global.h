@@ -27,8 +27,6 @@ public:
     QByteArray lastQuery() const;
 
 private:
-    void stopServer();
-
     QThread *m_serverThread;
     FakeServer *m_server;
 };

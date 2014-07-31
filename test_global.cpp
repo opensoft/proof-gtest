@@ -26,8 +26,11 @@ FakeServerRunner::FakeServerRunner(int port)
 
 FakeServerRunner::~FakeServerRunner()
 {
-    stopServer();
-    delete m_server;
+    QMetaObject::invokeMethod(m_server, "stopListen", Qt::BlockingQueuedConnection);
+    m_server->deleteLater();
+    m_serverThread->quit();
+    m_serverThread->wait(1000);
+    m_serverThread->terminate();
     delete m_serverThread;
 }
 
@@ -54,12 +57,4 @@ void FakeServerRunner::setResultCode(int code, const QByteArray &reasonPhrase)
 QByteArray FakeServerRunner::lastQuery() const
 {
     return m_server->lastQuery();
-}
-
-void FakeServerRunner::stopServer()
-{
-    QMetaObject::invokeMethod(m_server, "stopListen", Qt::QueuedConnection);
-    m_serverThread->quit();
-    m_serverThread->wait(1000);
-    m_serverThread->terminate();
 }
