@@ -1,7 +1,7 @@
 TEMPLATE = lib
 TARGET = gtest
-CONFIG += qt
-QT += core network
+CONFIG += qt c++11
+QT += core network testlib
 
 include(../../proof.pri)
 

@@ -2,6 +2,11 @@
 #define TEST_GLOBAL_H
 
 #include "gtest.h"
+#include <QList>
+#include <QSignalSpy>
+#include <QStringList>
+#include <QString>
+#include <QByteArray>
 
 class QString;
 class QByteArray;
@@ -12,6 +17,9 @@ class QJsonDocument;
 //Methods for pretty printing Qt class'es values
 void PrintTo(const QString& str, ::std::ostream* os);
 void PrintTo(const QByteArray& str, ::std::ostream* os);
+
+QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
+QByteArray dataFromFile(const QString &fileName);
 
 //Fake Server Runner class
 class FakeServerRunner {
