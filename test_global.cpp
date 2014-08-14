@@ -4,6 +4,7 @@
 #include <QMetaObject>
 #include <QThread>
 #include <QFile>
+#include <QSignalSpy>
 
 void PrintTo(const QString& str, ::std::ostream* os)
 {

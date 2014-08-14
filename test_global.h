@@ -3,16 +3,13 @@
 
 #include "gtest.h"
 #include <QList>
-#include <QSignalSpy>
 #include <QStringList>
 #include <QString>
 #include <QByteArray>
 
-class QString;
-class QByteArray;
 class QThread;
 class FakeServer;
-class QJsonDocument;
+class QSignalSpy;
 
 //Methods for pretty printing Qt class'es values
 void PrintTo(const QString& str, ::std::ostream* os);
