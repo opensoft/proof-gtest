@@ -58,7 +58,7 @@ void FakeServer::sendData()
     if (socket && socket->canReadLine()) {
         QByteArray line = socket->readLine();
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
-        if (tokens[0] == "GET" || tokens[0] == "POST") {
+        if (tokens[0] == "GET" || tokens[0] == "POST" || tokens[0] == "PATCH") {
             QTextStream os(socket);
             os.setAutoDetectUnicode(true);
             os << QString("HTTP/1.0 %1 %2\r\n"
