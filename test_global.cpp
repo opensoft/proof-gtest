@@ -78,7 +78,7 @@ QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)
 QByteArray dataFromFile(const QString &fileName)
 {
     QFile jsonFile(fileName);
-    if (!jsonFile.open(QIODevice::ReadOnly))
+    if (!jsonFile.open(QIODevice::ReadOnly|QIODevice::Text))
         return QByteArray();
     QByteArray data = jsonFile.readAll();
     jsonFile.close();
