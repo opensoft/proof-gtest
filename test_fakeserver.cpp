@@ -64,7 +64,7 @@ void FakeServer::sendData()
             os << QString("HTTP/1.0 %1 %2\r\n"
                   "Content-Type: text/json; charset=\"utf-8\"\r\n"
                   "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData())
-               << m_answerBody << "\n";
+               << m_answerBody;
 
             forever {
                 QByteArray read = socket->read(1024);
