@@ -17,6 +17,7 @@ void PrintTo(const QByteArray& str, ::std::ostream* os);
 
 QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
 QByteArray dataFromFile(const QString &fileName);
+QByteArray binaryDataFromFile(const QString &fileName);
 
 //Fake Server Runner class
 class FakeServerRunner {

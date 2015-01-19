@@ -59,13 +59,12 @@ void FakeServer::sendData()
         QByteArray line = socket->readLine();
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
         if (tokens[0] == "GET" || tokens[0] == "POST" || tokens[0] == "PATCH") {
-            QTextStream os(socket);
-            os.setAutoDetectUnicode(true);
-            os << QString("HTTP/1.0 %1 %2\r\n"
-                  "Content-Type: text/json; charset=\"utf-8\"\r\n"
-                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData())
-               << m_answerBody;
 
+            socket->write(QString("HTTP/1.0 %1 %2\r\n"
+                  "Content-Type: application/json;\r\n"
+                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
+            socket->write(m_answerBody);
+            socket->flush();
             forever {
                 QByteArray read = socket->read(1024);
                 if (read.isEmpty() && !socket->waitForReadyRead(100))

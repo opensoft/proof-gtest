@@ -84,3 +84,13 @@ QByteArray dataFromFile(const QString &fileName)
     jsonFile.close();
     return data;
 }
+
+QByteArray binaryDataFromFile(const QString &fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly))
+        return QByteArray();
+    QByteArray data = file.readAll();
+    file.close();
+    return data;
+}
