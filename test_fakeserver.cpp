@@ -60,11 +60,6 @@ void FakeServer::sendData()
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
         if (tokens[0] == "GET" || tokens[0] == "POST" || tokens[0] == "PATCH") {
 
-            socket->write(QString("HTTP/1.0 %1 %2\r\n"
-                  "Content-Type: application/json;\r\n"
-                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
-            socket->write(m_answerBody);
-            socket->flush();
             forever {
                 QByteArray read = socket->read(1024);
                 if (read.isEmpty() && !socket->waitForReadyRead(100))
@@ -72,11 +67,16 @@ void FakeServer::sendData()
                 line.append(read);
             }
 
+            socket->write(QString("HTTP/1.0 %1 %2\r\n"
+                  "Content-Type: application/json;\r\n"
+                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
+            socket->write(m_answerBody);
+            socket->flush();
             socket->close();
 
-            if (socket->state() == QTcpSocket::UnconnectedState) {
+            if (socket->state() == QTcpSocket::UnconnectedState)
                 delete socket;
-            }
+
             m_lastQuery = line;
         }
     }
