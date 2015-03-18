@@ -2,6 +2,10 @@
 
 #include <QTcpSocket>
 
+static QSet<QString> METHODS = {
+    "GET", "POST", "PATCH", "PUT", "DELETE"
+};
+
 FakeServer::FakeServer(int port)
     : m_port(port),
       m_returnCode(200),
@@ -19,6 +23,16 @@ void FakeServer::startListen()
 void FakeServer::stopListen()
 {
     close();
+}
+
+void FakeServer::addAnswerHeader(const QString &header, const QString &value)
+{
+    m_headers.append(QString("%1: %2\r\n").arg(header).arg(value).toUtf8());
+}
+
+void FakeServer::clearAnswerHeaders()
+{
+    m_headers.clear();
 }
 
 void FakeServer::setAnswerBody(const QByteArray &rawAnswer)
@@ -58,7 +72,7 @@ void FakeServer::sendData()
     if (socket && socket->canReadLine()) {
         QByteArray line = socket->readLine();
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
-        if (tokens[0] == "GET" || tokens[0] == "POST" || tokens[0] == "PATCH") {
+        if (METHODS.contains(tokens[0])) {
 
             forever {
                 QByteArray read = socket->read(1024);
@@ -68,8 +82,10 @@ void FakeServer::sendData()
             }
 
             socket->write(QString("HTTP/1.0 %1 %2\r\n"
-                  "Content-Type: application/json;\r\n"
-                  "\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
+                  "Content-Type: application/json;\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
+            for (const QByteArray &header : m_headers)
+                socket->write(header);
+            socket->write("\r\n");
             socket->write(m_answerBody);
             socket->flush();
             socket->close();

@@ -39,6 +39,16 @@ void FakeServerRunner::runServer()
     QMetaObject::invokeMethod(m_server, "startListen", Qt::BlockingQueuedConnection);
 }
 
+void FakeServerRunner::addAnswerHeader(const QString &header, const QString &value)
+{
+    m_server->addAnswerHeader(header, value);
+}
+
+void FakeServerRunner::clearAnswerHeaders()
+{
+    m_server->clearAnswerHeaders();
+}
+
 void FakeServerRunner::setServerAnswer(const QByteArray &answer)
 {
     m_server->setAnswerBody(answer);

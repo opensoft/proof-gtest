@@ -27,6 +27,8 @@ public:
     ~FakeServerRunner();
 
     void runServer();
+    void addAnswerHeader(const QString &header, const QString &value);
+    void clearAnswerHeaders();
     void setServerAnswer(const QByteArray &answer);
     bool serverIsRunning() const;
     void setResultCode(int code, const QByteArray &reasonPhrase);

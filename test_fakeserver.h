@@ -12,6 +12,8 @@ public:
 public slots:
     void startListen();
     void stopListen();
+    void addAnswerHeader(const QString &header, const QString &value);
+    void clearAnswerHeaders();
     void setAnswerBody(const QByteArray &rawAnswer);
     void setResultCode(int code, const QByteArray &reasonPhrase);
     QByteArray lastQuery() const;
@@ -23,6 +25,7 @@ private slots:
 
 private:
     int m_port;
+    QList<QByteArray> m_headers;
     QByteArray m_answerBody;
     QByteArray m_lastQuery;
     int m_returnCode;
