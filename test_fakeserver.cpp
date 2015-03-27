@@ -94,6 +94,8 @@ void FakeServer::sendData()
                 delete socket;
 
             m_lastQuery = line;
+        } else {
+            m_lastQuery.append(line);
         }
     }
 }
