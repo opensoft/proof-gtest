@@ -80,6 +80,7 @@ void FakeServer::sendData()
                     break;
                 line.append(read);
             }
+            m_lastQuery = line;
 
             socket->write(QString("HTTP/1.0 %1 %2\r\n"
                   "Content-Type: application/json;\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
@@ -92,8 +93,6 @@ void FakeServer::sendData()
 
             if (socket->state() == QTcpSocket::UnconnectedState)
                 delete socket;
-
-            m_lastQuery = line;
         } else {
             m_lastQuery.append(line);
         }
