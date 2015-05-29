@@ -7,6 +7,7 @@
 #include <QString>
 #include <QByteArray>
 
+class QObject;
 class QThread;
 class FakeServer;
 class QSignalSpy;
