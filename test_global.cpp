@@ -30,7 +30,8 @@ FakeServerRunner::~FakeServerRunner()
     m_server->deleteLater();
     m_serverThread->quit();
     m_serverThread->wait(1000);
-    m_serverThread->terminate();
+    if (m_serverThread->isRunning())
+        m_serverThread->terminate();
     delete m_serverThread;
 }
 

@@ -92,7 +92,7 @@ void FakeServer::sendData()
             socket->close();
 
             if (socket->state() == QTcpSocket::UnconnectedState)
-                delete socket;
+                socket->deleteLater();
         } else {
             m_lastQuery.append(line);
         }
