@@ -10,7 +10,11 @@ DESTDIR = $$BUILDPATH/tests
 DEPENDPATH += . internal
 INCLUDEPATH += .. .
 
-QMAKE_CXXFLAGS += -Wno-missing-field-initializers
+msvc {
+    DEFINES += GTEST_CREATE_SHARED_LIBRARY
+} else {
+    QMAKE_CXXFLAGS += -Wno-missing-field-initializers
+}
 
 # Input
 HEADERS += gtest-death-test.h \

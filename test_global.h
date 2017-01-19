@@ -13,15 +13,15 @@ class FakeServer;
 class QSignalSpy;
 
 //Methods for pretty printing Qt class'es values
-void PrintTo(const QString& str, ::std::ostream* os);
-void PrintTo(const QByteArray& str, ::std::ostream* os);
+GTEST_API_ void PrintTo(const QString& str, ::std::ostream* os);
+GTEST_API_ void PrintTo(const QByteArray& str, ::std::ostream* os);
 
-QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
-QByteArray dataFromFile(const QString &fileName);
-QByteArray binaryDataFromFile(const QString &fileName);
+GTEST_API_ QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
+GTEST_API_ QByteArray dataFromFile(const QString &fileName);
+GTEST_API_ QByteArray binaryDataFromFile(const QString &fileName);
 
 //Fake Server Runner class
-class FakeServerRunner {
+class GTEST_API_ FakeServerRunner {
 
 public:
     FakeServerRunner(int port = 9091);
