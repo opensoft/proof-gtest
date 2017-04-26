@@ -32,6 +32,8 @@
 //
 // Implements a family of generic predicate assertion macros.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_GTEST_PRED_IMPL_H_
 #define GTEST_INCLUDE_GTEST_GTEST_PRED_IMPL_H_
 

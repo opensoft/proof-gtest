@@ -31,6 +31,8 @@
 
 // Type and function utilities for implementing parameterized tests.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_PARAM_UTIL_H_
 #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_PARAM_UTIL_H_
 

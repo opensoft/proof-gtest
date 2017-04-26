@@ -3,7 +3,7 @@
 
 #include <QTcpServer>
 
-class FakeServer: public QTcpServer
+class FakeServer: public QTcpServer // clazy:exclude=ctor-missing-parent-argument
 {
     Q_OBJECT
 public:

@@ -42,6 +42,8 @@
 // or void PrintTo(const Foo&, ::std::ostream*) in the namespace that
 // defines Foo.
 
+// clazy:skip
+
 #include "gtest/gtest-printers.h"
 #include <ctype.h>
 #include <stdio.h>

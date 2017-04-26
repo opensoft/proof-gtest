@@ -29,6 +29,8 @@
 //
 // Author: wan@google.com (Zhanyong Wan)
 
+// clazy:skip
+
 #include "gtest/gtest-typed-test.h"
 #include "gtest/gtest.h"
 

@@ -31,6 +31,8 @@
 //
 // The Google C++ Testing Framework (Google Test)
 
+// clazy:skip
+
 #include "gtest/gtest-test-part.h"
 
 // Indicates that this translation unit is part of Google Test's

@@ -31,6 +31,8 @@
 //
 // This file implements death tests.
 
+// clazy:skip
+
 #include "gtest/gtest-death-test.h"
 #include "gtest/internal/gtest-port.h"
 

@@ -34,6 +34,8 @@
 // This header file defines internal utilities needed for implementing
 // death tests.  They are subject to change without notice.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_DEATH_TEST_INTERNAL_H_
 #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_DEATH_TEST_INTERNAL_H_
 

@@ -27,7 +27,7 @@ void FakeServer::stopListen()
 
 void FakeServer::addAnswerHeader(const QString &header, const QString &value)
 {
-    m_headers.append(QString("%1: %2\r\n").arg(header).arg(value).toUtf8());
+    m_headers.append(QStringLiteral("%1: %2\r\n").arg(header, value).toUtf8());
 }
 
 void FakeServer::clearAnswerHeaders()
@@ -84,7 +84,7 @@ void FakeServer::sendData()
 
             socket->write(QString("HTTP/1.0 %1 %2\r\n"
                   "Content-Type: application/json;\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
-            for (const QByteArray &header : m_headers)
+            for (const QByteArray &header : qAsConst(m_headers))
                 socket->write(header);
             socket->write("\r\n");
             socket->write(m_answerBody);

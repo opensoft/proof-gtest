@@ -30,6 +30,8 @@
 // Author: mheule@google.com (Markus Heule)
 //
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_GTEST_TEST_PART_H_
 #define GTEST_INCLUDE_GTEST_GTEST_TEST_PART_H_
 

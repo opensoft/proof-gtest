@@ -31,6 +31,8 @@
 //
 // The Google C++ Testing Framework (Google Test)
 
+// clazy:skip
+
 #include "gtest/gtest.h"
 #include "gtest/gtest-spi.h"
 

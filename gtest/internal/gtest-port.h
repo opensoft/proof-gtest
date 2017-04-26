@@ -37,6 +37,8 @@
 // files are expected to #include this.  Therefore, it cannot #include
 // any other Google Test header.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_PORT_H_
 #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_PORT_H_
 

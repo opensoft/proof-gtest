@@ -92,6 +92,8 @@
 // being defined as many user-defined container types don't have
 // value_type.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
 #define GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
 

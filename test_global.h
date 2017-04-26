@@ -21,8 +21,8 @@ GTEST_API_ QByteArray dataFromFile(const QString &fileName);
 GTEST_API_ QByteArray binaryDataFromFile(const QString &fileName);
 
 //Fake Server Runner class
-class GTEST_API_ FakeServerRunner {
-
+class GTEST_API_ FakeServerRunner  // clazy:exclude=rule-of-three
+{
 public:
     FakeServerRunner(int port = 9091);
     ~FakeServerRunner();

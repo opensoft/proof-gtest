@@ -34,6 +34,8 @@
 // This header file declares functions and macros used internally by
 // Google Test.  They are subject to change without notice.
 
+// clazy:skip
+
 #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_INTERNAL_H_
 #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_INTERNAL_H_
 
