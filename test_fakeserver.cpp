@@ -82,8 +82,9 @@ void FakeServer::sendData()
             }
             m_lastQuery = line;
 
-            socket->write(QString("HTTP/1.0 %1 %2\r\n"
-                  "Content-Type: application/json;\r\n").arg(m_returnCode).arg(m_reasonPhrase.constData()).toUtf8());
+            socket->write(QString("HTTP/1.0 %1 %2\r\nContent-Type: application/json;\r\n")
+                          .arg(m_returnCode)
+                          .arg(m_reasonPhrase.constData()).toUtf8());
             for (const QByteArray &header : qAsConst(m_headers))
                 socket->write(header);
             socket->write("\r\n");

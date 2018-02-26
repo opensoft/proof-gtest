@@ -86,6 +86,25 @@ QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)
     return spies;
 }
 
+QStringList findWrongChangedSignalsInQmlWrapper(QObject *obj, const QStringList &excludes)
+{
+    const QMetaObject* metaObject = obj->metaObject();
+    QStringList invalidProperties;
+    for(int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i) {
+        QMetaProperty property = metaObject->property(i);
+        QString name = QString::fromLatin1(property.name());
+
+        if (excludes.contains(name) || property.isConstant())
+            continue;
+
+        QString signal = QString::fromLatin1(property.notifySignal().name());
+        if (QString("%1Changed").arg(name) != signal)
+            invalidProperties << QString("%1=>%2").arg(name, signal);
+    }
+
+    return invalidProperties;
+}
+
 QByteArray dataFromFile(const QString &fileName)
 {
     QFile jsonFile(fileName);
@@ -105,3 +124,4 @@ QByteArray binaryDataFromFile(const QString &fileName)
     file.close();
     return data;
 }
+
