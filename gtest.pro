@@ -5,7 +5,7 @@ QT += core network testlib
 
 include(../../proof.pri)
 
-DESTDIR = $$BUILDPATH/tests
+DESTDIR = $$BUILDPATH/tests/lib
 
 DEPENDPATH += . internal
 INCLUDEPATH += .. .
