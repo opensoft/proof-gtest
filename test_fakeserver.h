@@ -25,7 +25,7 @@ private slots:
 
 private:
     int m_port;
-    QList<QByteArray> m_headers;
+    QVector<QByteArray> m_headers;
     QByteArray m_answerBody;
     QByteArray m_lastQuery;
     int m_returnCode;

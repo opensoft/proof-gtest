@@ -2,7 +2,7 @@
 #define TEST_GLOBAL_H
 
 #include "gtest.h"
-#include <QList>
+#include <QVector>
 #include <QStringList>
 #include <QString>
 #include <QByteArray>
@@ -17,7 +17,7 @@ GTEST_API_ void PrintTo(const QString& str, ::std::ostream* os);
 GTEST_API_ void PrintTo(const QByteArray& str, ::std::ostream* os);
 
 GTEST_API_ QStringList findWrongChangedSignalsInQmlWrapper(QObject *obj, const QStringList &excludes = {});
-GTEST_API_ QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
+GTEST_API_ QVector<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes = {});
 GTEST_API_ QByteArray dataFromFile(const QString &fileName);
 GTEST_API_ QByteArray binaryDataFromFile(const QString &fileName);
 

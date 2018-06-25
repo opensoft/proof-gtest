@@ -70,9 +70,9 @@ QByteArray FakeServerRunner::lastQuery() const
     return m_server->lastQuery();
 }
 
-QList<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)
+QVector<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)
 {
-    QList<QSignalSpy *> spies;
+    QVector<QSignalSpy *> spies;
     for (int i = obj->metaObject()->methodOffset(); i < obj->metaObject()->methodCount(); ++i) {
         if (obj->metaObject()->method(i).methodType() == QMetaMethod::Signal) {
             QByteArray sign = obj->metaObject()->method(i).methodSignature();
