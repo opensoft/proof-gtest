@@ -1,17 +1,18 @@
 #include "test_global.h"
+
 #include "test_fakeserver.h"
 
-#include <QMetaObject>
-#include <QThread>
 #include <QFile>
+#include <QMetaObject>
 #include <QSignalSpy>
+#include <QThread>
 
-void PrintTo(const QString& str, ::std::ostream* os)
+void PrintTo(const QString &str, ::std::ostream *os)
 {
     *os << "\"" << str.toStdString() << "\"";
 }
 
-void PrintTo(const QByteArray& str, ::std::ostream* os)
+void PrintTo(const QByteArray &str, ::std::ostream *os)
 {
     *os << "\"" << str.constData() << "\"";
 }
@@ -88,9 +89,9 @@ QVector<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)
 
 QStringList findWrongChangedSignalsInQmlWrapper(QObject *obj, const QStringList &excludes)
 {
-    const QMetaObject* metaObject = obj->metaObject();
+    const QMetaObject *metaObject = obj->metaObject();
     QStringList invalidProperties;
-    for(int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i) {
+    for (int i = metaObject->propertyOffset(); i < metaObject->propertyCount(); ++i) {
         QMetaProperty property = metaObject->property(i);
         QString name = QString::fromLatin1(property.name());
 
@@ -98,8 +99,8 @@ QStringList findWrongChangedSignalsInQmlWrapper(QObject *obj, const QStringList 
             continue;
 
         QString signal = QString::fromLatin1(property.notifySignal().name());
-        if (QString("%1Changed").arg(name) != signal)
-            invalidProperties << QString("%1=>%2").arg(name, signal);
+        if (QStringLiteral("%1Changed").arg(name) != signal)
+            invalidProperties << QStringLiteral("%1=>%2").arg(name, signal);
     }
 
     return invalidProperties;
@@ -108,7 +109,7 @@ QStringList findWrongChangedSignalsInQmlWrapper(QObject *obj, const QStringList 
 QByteArray dataFromFile(const QString &fileName)
 {
     QFile jsonFile(fileName);
-    if (!jsonFile.open(QIODevice::ReadOnly|QIODevice::Text))
+    if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return QByteArray();
     QByteArray data = jsonFile.readAll();
     jsonFile.close();
@@ -124,4 +125,3 @@ QByteArray binaryDataFromFile(const QString &fileName)
     file.close();
     return data;
 }
-

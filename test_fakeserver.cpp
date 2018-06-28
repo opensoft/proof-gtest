@@ -2,14 +2,9 @@
 
 #include <QTcpSocket>
 
-static QSet<QString> METHODS = {
-    "GET", "POST", "PATCH", "PUT", "DELETE"
-};
+static QSet<QString> METHODS = {"GET", "POST", "PATCH", "PUT", "DELETE"};
 
-FakeServer::FakeServer(int port)
-    : m_port(port),
-      m_returnCode(200),
-      m_reasonPhrase("OK")
+FakeServer::FakeServer(int port) : m_port(port), m_returnCode(200), m_reasonPhrase("OK")
 {
     connect(this, &FakeServer::newConnection, this, &FakeServer::createNewConnection);
 }
@@ -73,7 +68,6 @@ void FakeServer::sendData()
         QByteArray line = socket->readLine();
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
         if (METHODS.contains(tokens[0])) {
-
             forever {
                 QByteArray read = socket->read(1024);
                 if (read.isEmpty() && !socket->waitForReadyRead(100))
@@ -82,9 +76,10 @@ void FakeServer::sendData()
             }
             m_lastQuery = line;
 
-            socket->write(QString("HTTP/1.0 %1 %2\r\nContent-Type: application/json;\r\n")
-                          .arg(m_returnCode)
-                          .arg(m_reasonPhrase.constData()).toUtf8());
+            socket->write(QStringLiteral("HTTP/1.0 %1 %2\r\nContent-Type: application/json;\r\n")
+                              .arg(m_returnCode)
+                              .arg(m_reasonPhrase.constData())
+                              .toUtf8());
             for (const QByteArray &header : qAsConst(m_headers))
                 socket->write(header);
             socket->write("\r\n");

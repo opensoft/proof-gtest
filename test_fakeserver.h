@@ -3,27 +3,25 @@
 
 #include <QTcpServer>
 
-class FakeServer: public QTcpServer // clazy:exclude=ctor-missing-parent-argument
+class FakeServer : public QTcpServer
 {
     Q_OBJECT
 public:
     FakeServer(int port = 9091);
 
-public slots:
-    void startListen();
-    void stopListen();
+    Q_INVOKABLE void startListen();
+    Q_INVOKABLE void stopListen();
     void addAnswerHeader(const QString &header, const QString &value);
     void clearAnswerHeaders();
     void setAnswerBody(const QByteArray &rawAnswer);
     void setResultCode(int code, const QByteArray &reasonPhrase);
     QByteArray lastQuery() const;
 
-private slots:
+private:
     void createNewConnection();
     void removeConnection();
     void sendData();
 
-private:
     int m_port;
     QVector<QByteArray> m_headers;
     QByteArray m_answerBody;
