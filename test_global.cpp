@@ -66,9 +66,24 @@ void FakeServerRunner::setResultCode(int code, const QByteArray &reasonPhrase)
     m_server->setResultCode(code, reasonPhrase);
 }
 
-QByteArray FakeServerRunner::lastQuery() const
+QByteArray FakeServerRunner::lastQueryRaw() const
 {
-    return m_server->lastQuery();
+    return m_server->lastQueryRaw();
+}
+
+QUrl FakeServerRunner::lastQueryUrl() const
+{
+    return m_server->lastQueryUrl();
+}
+
+FakeServer::Method FakeServerRunner::lastQueryMethod() const
+{
+    return m_server->lastQueryMethod();
+}
+
+QByteArray FakeServerRunner::lastQueryBody() const
+{
+    return m_server->lastQueryBody();
 }
 
 QVector<QSignalSpy *> spiesForObject(QObject *obj, const QStringList &excludes)

@@ -1,12 +1,24 @@
 #ifndef TEST_FAKESERVER_H
 #define TEST_FAKESERVER_H
 
-#include <QTcpServer>
+#include <QUrl>
+#include <QtNetwork/QTcpServer>
 
 class FakeServer : public QTcpServer
 {
     Q_OBJECT
+    Q_ENUMS(Method)
 public:
+    enum class Method
+    {
+        Get,
+        Post,
+        Patch,
+        Put,
+        Delete,
+        Custom
+    };
+
     FakeServer(int port = 9091);
 
     Q_INVOKABLE void startListen();
@@ -15,7 +27,10 @@ public:
     void clearAnswerHeaders();
     void setAnswerBody(const QByteArray &rawAnswer);
     void setResultCode(int code, const QByteArray &reasonPhrase);
-    QByteArray lastQuery() const;
+    QByteArray lastQueryRaw() const;
+    QUrl lastQueryUrl() const;
+    Method lastQueryMethod() const;
+    QByteArray lastQueryBody() const;
 
 private:
     void createNewConnection();
@@ -25,7 +40,10 @@ private:
     int m_port;
     QVector<QByteArray> m_headers;
     QByteArray m_answerBody;
-    QByteArray m_lastQuery;
+    QByteArray m_lastQueryRaw;
+    QUrl m_lastQueryUrl;
+    Method m_lastQueryMethod;
+    QByteArray m_lastQueryBody;
     int m_returnCode;
     QByteArray m_reasonPhrase;
 };

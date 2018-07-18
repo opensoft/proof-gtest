@@ -1,6 +1,8 @@
 #ifndef TEST_GLOBAL_H
 #define TEST_GLOBAL_H
 
+#include "test_fakeserver.h"
+
 #include <QByteArray>
 #include <QString>
 #include <QStringList>
@@ -10,7 +12,6 @@
 
 class QObject;
 class QThread;
-class FakeServer;
 class QSignalSpy;
 
 //Methods for pretty printing Qt class'es values
@@ -35,7 +36,10 @@ public:
     void setServerAnswer(const QByteArray &answer);
     bool serverIsRunning() const;
     void setResultCode(int code, const QByteArray &reasonPhrase);
-    QByteArray lastQuery() const;
+    QByteArray lastQueryRaw() const;
+    QUrl lastQueryUrl() const;
+    FakeServer::Method lastQueryMethod() const;
+    QByteArray lastQueryBody() const;
 
 private:
     QThread *m_serverThread;

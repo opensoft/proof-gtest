@@ -2,7 +2,16 @@
 
 #include <QTcpSocket>
 
-static QSet<QString> METHODS = {"GET", "POST", "PATCH", "PUT", "DELETE"};
+static const QHash<QString, FakeServer::Method> METHODS = {{"GET", FakeServer::Method::Get},
+                                                           {"POST", FakeServer::Method::Post},
+                                                           {"PATCH", FakeServer::Method::Patch},
+                                                           {"PUT", FakeServer::Method::Put},
+                                                           {"DELETE", FakeServer::Method::Delete}};
+
+FakeServer::Method methodFromString(QString methodString)
+{
+    return METHODS.value(methodString, FakeServer::Method::Custom);
+}
 
 FakeServer::FakeServer(int port) : m_port(port), m_returnCode(200), m_reasonPhrase("OK")
 {
@@ -41,9 +50,24 @@ void FakeServer::setResultCode(int code, const QByteArray &reasonPhrase)
     m_reasonPhrase = reasonPhrase;
 }
 
-QByteArray FakeServer::lastQuery() const
+QByteArray FakeServer::lastQueryRaw() const
 {
-    return m_lastQuery;
+    return m_lastQueryRaw;
+}
+
+QUrl FakeServer::lastQueryUrl() const
+{
+    return m_lastQueryUrl;
+}
+
+FakeServer::Method FakeServer::lastQueryMethod() const
+{
+    return m_lastQueryMethod;
+}
+
+QByteArray FakeServer::lastQueryBody() const
+{
+    return m_lastQueryBody;
 }
 
 void FakeServer::createNewConnection()
@@ -67,14 +91,17 @@ void FakeServer::sendData()
     if (socket && socket->canReadLine()) {
         QByteArray line = socket->readLine();
         QStringList tokens = QString(line).split(QRegExp("[ \r\n][ \r\n]*"));
-        if (METHODS.contains(tokens[0])) {
+        m_lastQueryMethod = methodFromString(tokens[0]);
+        if (tokens.count() > 1)
+            m_lastQueryUrl = tokens[1];
+        if (m_lastQueryMethod != Method::Custom) {
             forever {
                 QByteArray read = socket->read(1024);
                 if (read.isEmpty() && !socket->waitForReadyRead(100))
                     break;
                 line.append(read);
             }
-            m_lastQuery = line;
+            m_lastQueryRaw = line;
 
             socket->write(QStringLiteral("HTTP/1.0 %1 %2\r\nContent-Type: application/json;\r\n")
                               .arg(m_returnCode)
@@ -90,7 +117,9 @@ void FakeServer::sendData()
             if (socket->state() == QTcpSocket::UnconnectedState)
                 socket->deleteLater();
         } else {
-            m_lastQuery.append(line);
+            m_lastQueryRaw.append(line);
         }
+
+        m_lastQueryBody = QString::fromLatin1(m_lastQueryRaw).split("\r\n\r\n").last().toLatin1();
     }
 }
