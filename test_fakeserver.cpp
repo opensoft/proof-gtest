@@ -94,15 +94,16 @@ void FakeServer::sendData()
         m_lastQueryMethod = methodFromString(tokens[0]);
         if (tokens.count() > 1)
             m_lastQueryUrl = tokens[1];
-        if (m_lastQueryMethod != Method::Custom) {
-            forever {
-                QByteArray read = socket->read(1024);
-                if (read.isEmpty() && !socket->waitForReadyRead(100))
-                    break;
-                line.append(read);
-            }
-            m_lastQueryRaw = line;
+        forever {
+            QByteArray read = socket->read(1024);
+            if (read.isEmpty() && !socket->waitForReadyRead(100))
+                break;
+            line.append(read);
+        }
+        m_lastQueryRaw = line;
+        m_lastQueryBody = QString::fromLatin1(m_lastQueryRaw).split("\r\n\r\n").last().toLatin1();
 
+        if (m_lastQueryMethod != Method::Custom) {
             socket->write(QStringLiteral("HTTP/1.0 %1 %2\r\nContent-Type: application/json;\r\n")
                               .arg(m_returnCode)
                               .arg(m_reasonPhrase.constData())
@@ -116,10 +117,6 @@ void FakeServer::sendData()
 
             if (socket->state() == QTcpSocket::UnconnectedState)
                 socket->deleteLater();
-        } else {
-            m_lastQueryRaw.append(line);
         }
-
-        m_lastQueryBody = QString::fromLatin1(m_lastQueryRaw).split("\r\n\r\n").last().toLatin1();
     }
 }
