@@ -10,7 +10,7 @@ INCLUDEPATH += . gtest
 msvc {
     DEFINES += GTEST_CREATE_SHARED_LIBRARY
 } else {
-    QMAKE_CXXFLAGS += -Wno-missing-field-initializers
+    QMAKE_CXXFLAGS_WARN_ON += -Wno-missing-field-initializers
 }
 
 HEADERS += gtest/gtest-death-test.h \
@@ -48,11 +48,19 @@ SOURCES += gtest/gtest-all.cc \
     test_global.cpp \
     test_fakeserver.cpp
 
-isEmpty(PROOF_GTEST_PREFIX):PROOF_GTEST_PREFIX = $$PREFIX
+PROOF_GTEST_PREFIX = $$(PROOF_PATH)
+isEmpty(PROOF_GTEST_PREFIX) {
+    # Standalone
+    message(Building proof-gtest as standalone library)
+    target.path = $$PREFIX/lib/
+    headers.path = $$PREFIX/include/gtest
+    headers.files = gtest/*.h *.h
+    internal_headers.path = $$PREFIX/include/gtest/internal
+    internal_headers.files = gtest/internal/*.h
+    INSTALLS += target headers internal_headers
+} else {
+    # Part of Proof
+    message(Building proof-gtest as part of Proof framework)
+    DESTDIR = $$PROOF_GTEST_PREFIX/lib
+}
 
-target.path = $$PROOF_GTEST_PREFIX/lib/
-headers.path = $$PROOF_GTEST_PREFIX/include/gtest
-headers.files = gtest/*.h *.h
-internal_headers.path = $$PROOF_GTEST_PREFIX/include/gtest/internal
-internal_headers.files = gtest/internal/*.h
-INSTALLS += target headers internal_headers
