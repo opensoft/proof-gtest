@@ -1,0 +1,24 @@
+*.pro.user*
+*.txt.user*
+moc_*.cpp
+qrc_*.cpp
+Makefile*
+/*build*/
+*.autosave
+/bin*/
+*DS_Store*
+*.deb
+.directory
+*.o
+
+# MSVC files
+Debug
+Release
+.vs
+*_resource.rc
+*.VC.*
+*.vcxproj*
+*ts_files.list
+*.sln
+*.db
+*.suo
