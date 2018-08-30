@@ -51,7 +51,7 @@ SOURCES += gtest/gtest-all.cc \
 PROOF_GTEST_PREFIX = $$(PROOF_PATH)
 isEmpty(PROOF_GTEST_PREFIX) {
     # Standalone
-    message(Building proof-gtest as standalone library)
+    !build_pass:log(Building proof-gtest as standalone library $$escape_expand(\\n))
     target.path = $$PREFIX/lib/
     headers.path = $$PREFIX/include/gtest
     headers.files = gtest/*.h *.h
@@ -60,7 +60,7 @@ isEmpty(PROOF_GTEST_PREFIX) {
     INSTALLS += target headers internal_headers
 } else {
     # Part of Proof
-    message(Building proof-gtest as part of Proof framework)
+    !build_pass:log(Building proof-gtest as part of Proof framework $$escape_expand(\\n))
     DESTDIR = $$PROOF_GTEST_PREFIX/lib
 }
 
