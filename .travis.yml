@@ -16,6 +16,7 @@ env:
     - PATH=$HOME/.local/bin:$PATH
     - secure: "kwEYU6Y/vMnJ1WtZdI/SSTpWVd84WV5AHbti+uo7A0OxRzp1PLig6IuVaD/hur1OlGMRhBuKGoQz9ftu9dgsXXcKAklBp/RA55dw+RHVsg5j77GfsXH0/3jJhnQf8hd5q1zlFIux+n4b6NS/fxZWJAWIdCVNgdBjUB5Nqdv04nLZaaKaD/Yle1nq293lGrqQjaUAhhVey1NY8bYT+woq/ee3E5lRiNurKaEFjxlQOnrK1KW/O5tSPWiBAxo0mM2Lk3LqE6G8CpDnR+IeE3FEAB6bpo737j41ivHmUVJ+faOquUAvDiMkF0Z/q+HLe7pMslxZ9yROlgyLeVv4g77Vxl1r1y/MWYMLq1ObO5AM2BrGs/m+k6So8yGOR1Ei8mu7dMXSatr+4EqnTL/SDR4lbqQkrCffp3j8lHyTtBAuB2gf1WzYMCaqgmk0eKD6mX+7/HZu/atse9IUi6hGIz6wqUDjQO0z8YmOWCFnlm9EtwM4iWBxhA2HgtlFhVXfkwLJkMcACZ/b+8pryOk6z6EpSRNhAbVBuTCe1+Z6P7OA90bP3pAbzXkTtHUPhvvzdfrL8HxCDUNDIVj3sHOyWJHoV28PyptfNKQZzUCyFpucsl0hBkvqfpEDBtMGgXYzxlDXctXvliAiukRl16NszX1RWu2lL/44jQ7xaIljpoqav9U="
     - secure: "eKUBuK7a4HjYmEmfNzD0TvwbGTKZXxj1VOkh09qlq/iu0QFznaBqB22rXOHuirXfDHvQBF5TyFRZp1BEt74CFhFvHlumTfuvXBo8pV6/NcaLmlWS0mKaYV/rI1qetsrM2AQWYZc96550xQnK/23l2yAgfIlbBORUM3vunOPckUTBGAQf/Zj9RI0C4n8IbtAm8IdiGtIytQsKXt6f6jmXxULn7QUcSrkC6kK+UABgin9hIa6XjvUGto3mFY7oZWOcHR5+M4EfwfjDSB3fjST+tLSmI3qohOz+lgzm81Jj2ev3/aIW/CGeFtGyz+u29WyYzyw4ie0C0XcNJUAV4jOXwQ5kdUHa/iK6+J88R/e6BFcTInFnjlE4C/3tNk9LzASTubyaKkMjcZldIbTRqnsQL8YV5KHrb8RFgCHZn6lMHlcnpacspIUYXUpuPLw3C4CdR1qHPGbhZx5NIkwHN4E1gd1R8ifn085mmvoYoo8paVPoxZc+Ulb6MrxKdxPxWphFWSsvNHVCV0sVZSDP4gP3DHSNxKWJ6vK2VZVIWjgFMwk5WJJe6rjtXvPLRUmFTvujSCNmN7eSMRTRYLiKNCc61WkYeBxgDN9a0A3dKUGU2Ed0Ogidu4uyOQO26LXS28sSrXQwFqtWP5DuPzup6Uq4hDhBaLO6r0gmPJ3QCKTLTew="
+    - secure: "G83nBFIGj4skIF4o4fszdf6+8w4w7+/r07QEWhVX8gEScMG4pBe9vKIYUo0iZwl1FuPVWOqdrCVGFKSEiM0p8+h342/gGdbpwn01oNqClNn7mO9+veTIlZyG+Dw6U+QhKfp8hSZ7bu7Wgr33r6u28f83RknHZwexKXCMXtfUp0b5ZYjEF2C27dVAPDUQ286kx8m5PGwO518+6PAfuZ7EnKbqIE8awxYLF1HuF5d5wFhVGRXV2IO7tUfKlA2JR7lbBqj9N2J+KrEyLYd718BMWOuEZHtHAmm6IoofYUBz9xHjkEF8lKXfS+TnbDFM33VoK/oVdFPw0KW4IeiZ6Pi4f16lO+wSn7YFe/5ajnLyP9UiC5sRKDsCW74CuySamrwWAV1BbCwYyxTLA7dWkEfrk5IUcDNyz5zniZYXJ7U/eLZPvm3uoLTXDACZ37H7SSwe30U/8dpP9rR4ojLAKUfGFfZ7pXRLPkbEQxZpdeSx6I5gSjezqsPTqi8F2KVAL/JJ+8yrDoeMGvyn25n+2sEkRdRwXhc+wICPAW38K8W4SFAva4O5rdtW6vswM8D6t7oGeFCixweCHB1iGwOl0faTHFHBIDT+IqInzVESKnBkwbTHjPaOo3ArrX8h2GboYoOdmo9y8jauU75yUVVIsyHqT6CUF9gwMvRh7pm4cq1dafE="
 
 before_install: export -f travis_fold && export -f travis_time_start && export -f travis_time_finish && export -f travis_nanoseconds
 script: echo "Nothing to do"
@@ -65,7 +66,7 @@ jobs:
       script: travis/compile/android_compile.sh
 
     - &post-compile
-      stage: Post compilation
+      stage: post compilation
       name: Raw linux binary upload to S3
       if: type != pull_request AND tag IS blank AND branch != master
       script: $HOME/proof-bin/travis/proof-modules/post-compile/raw-bin_upload.sh debian9
@@ -78,3 +79,9 @@ jobs:
       env: DUMMY=android
       if: type != pull_request AND tag IS blank AND branch != master
       script: $HOME/proof-bin/travis/proof-modules/post-compile/raw-bin_upload.sh android
+
+    - &ping-dependants
+      stage: Dependants builds
+      name: Build request for all modules based on current one
+      if: type != pull_request AND tag IS blank AND branch != master
+      script: $HOME/proof-bin/travis/ping_dependants.sh "opensoft/proofseed"
