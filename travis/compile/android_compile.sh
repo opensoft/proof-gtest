@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source $HOME/proof-bin/travis/detect_build_type.sh;
+source $HOME/proof-bin/dev-tools/travis/detect_build_type.sh;
 DOCKER_IMAGE=opensoftdev/proof-builder-android-ccache;
 
 mkdir $HOME/builder_logs;
@@ -35,7 +35,7 @@ echo -e "\033[1;33mBootstrapping...\033[0m";
 echo "$ bin/bootstrap.py --src gtest --dest bin --gtest-only";
 docker exec -t builder bash -c "exec 3>&1; set -o pipefail; rm -rf /sandbox/logs/*; \
     bin/bootstrap.py --src gtest --dest bin --gtest-only 2>&1 1>&3 | (tee /sandbox/logs/errors.log 1>&2)";
-travis_time_finish && travis_fold end "build.bootstrap" && $HOME/proof-bin/travis/check_for_errorslog.sh bootstrap || true;
+travis_time_finish && travis_fold end "build.bootstrap" && $HOME/proof-bin/dev-tools/travis/check_for_errorslog.sh bootstrap || true;
 echo " ";
 
 travis_fold start "build.qmake" && travis_time_start;
@@ -43,14 +43,14 @@ echo -e "\033[1;33mRunning qmake...\033[0m";
 echo "$ /qmake_wrapper.sh ../gtest/proof-gtest.pro";
 docker exec -t builder bash -c "exec 3>&1; set -o pipefail; rm -rf /sandbox/logs/*; mkdir build && cd build; \
     /qmake_wrapper.sh ../gtest/proof-gtest.pro 2>&1 1>&3 | (tee /sandbox/logs/errors.log 1>&2)";
-travis_time_finish && travis_fold end "build.qmake" && $HOME/proof-bin/travis/check_for_errorslog.sh qmake || true;
+travis_time_finish && travis_fold end "build.qmake" && $HOME/proof-bin/dev-tools/travis/check_for_errorslog.sh qmake || true;
 echo " ";
 
 travis_fold start "build.compile" && travis_time_start;
 echo -e "\033[1;33mCompiling...\033[0m";
 echo "$ make -j4";
 docker exec -t builder bash -c "exec 3>&1; set -o pipefail; rm -rf /sandbox/logs/*; cd build; make -j4 2>&1 1>&3 | (tee /sandbox/logs/errors.log 1>&2)";
-travis_time_finish && travis_fold end "build.compile" && $HOME/proof-bin/travis/check_for_errorslog.sh compilation || true;
+travis_time_finish && travis_fold end "build.compile" && $HOME/proof-bin/dev-tools/travis/check_for_errorslog.sh compilation || true;
 echo " ";
 
 travis_fold start "build.bin_cache_prepare" && travis_time_start;

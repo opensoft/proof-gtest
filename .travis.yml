@@ -69,7 +69,7 @@ jobs:
       stage: post compilation
       name: Raw linux binary upload to S3
       if: type != pull_request AND tag IS blank AND branch != master
-      script: $HOME/proof-bin/travis/proof-modules/post-compile/raw-bin_upload.sh debian9
+      script: $HOME/proof-bin/dev-tools/travis/proof-modules/post-compile/raw-bin_upload.sh debian9
     - <<: *post-compile
       name: Raw android binary upload to S3
       language: android
@@ -78,10 +78,10 @@ jobs:
           - build-tools-25.0.2
       env: DUMMY=android
       if: type != pull_request AND tag IS blank AND branch != master
-      script: $HOME/proof-bin/travis/proof-modules/post-compile/raw-bin_upload.sh android
+      script: $HOME/proof-bin/dev-tools/travis/proof-modules/post-compile/raw-bin_upload.sh android
 
     - &ping-dependants
       stage: Dependants builds
       name: Build request for all modules based on current one
       if: type != pull_request AND tag IS blank AND branch != master
-      script: $HOME/proof-bin/travis/ping_dependants.sh "opensoft/proofseed"
+      script: $HOME/proof-bin/dev-tools/travis/ping_dependants.sh "opensoft/proofseed"
