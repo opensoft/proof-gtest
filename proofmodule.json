@@ -1,0 +1,32 @@
+{
+    "name": "proof-gtest",
+    "has_tests": false,
+    "has_plugins": false,
+    "has_tools": false,
+    "bootstrap": {
+        "custom_only": true,
+        "process_3rdparty": false,
+        "process_qml": false,
+        "custom_steps": [
+            {
+                "operation": "copy_headers",
+                "from": "gtest",
+                "to": "gtest",
+                "with_private": false
+            },
+            {
+                "operation": "copy_file",
+                "from": "test_global.h",
+                "to": "include/gtest/test_global.h"
+            },
+            {
+                "operation": "copy_file",
+                "from": "test_fakeserver.h",
+                "to": "include/gtest/test_fakeserver.h"
+            }
+        ]
+    },
+    "depends": [],
+    "affects": ["proofseed"],
+    "libraries": []
+}

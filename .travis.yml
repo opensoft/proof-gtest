@@ -84,4 +84,4 @@ jobs:
       stage: Dependants builds
       name: Build request for all modules based on current one
       if: type != pull_request AND tag IS blank AND branch != master
-      script: $HOME/proof-bin/dev-tools/travis/ping_dependants.sh "opensoft/proofseed"
+      script: $HOME/proof-bin/dev-tools/travis/ping_dependants.sh
