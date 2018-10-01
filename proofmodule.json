@@ -5,8 +5,6 @@
     "has_tools": false,
     "bootstrap": {
         "custom_only": true,
-        "process_3rdparty": false,
-        "process_qml": false,
         "custom_steps": [
             {
                 "operation": "copy_headers",

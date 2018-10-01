@@ -50,7 +50,7 @@ jobs:
       stage: compilation and static checks
       name: Compilation (Debian9/clang/ccache)
       if: tag IS blank AND branch != master
-      script: travis/compile/linux_compile.sh
+      script: $HOME/proof-bin/dev-tools/travis/proof-modules/compile/linux_compile.sh
     - <<: *compile
       name: Compilation (Android27/gcc/ccache)
       language: android
@@ -63,7 +63,7 @@ jobs:
           - android-27
       env: DUMMY=android
       if: tag IS blank AND branch != master
-      script: travis/compile/android_compile.sh
+      script: $HOME/proof-bin/dev-tools/travis/proof-modules/compile/android_compile.sh
 
     - &post-compile
       stage: post compilation
