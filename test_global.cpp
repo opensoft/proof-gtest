@@ -1,3 +1,5 @@
+// clazy:skip
+
 #include "test_global.h"
 
 #include "test_fakeserver.h"

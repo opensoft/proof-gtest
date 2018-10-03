@@ -1,3 +1,5 @@
+// clazy:skip
+
 #include "test_fakeserver.h"
 
 #include <QTcpSocket>
