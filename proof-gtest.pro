@@ -13,7 +13,8 @@ msvc {
     QMAKE_CXXFLAGS_WARN_ON += -Wno-missing-field-initializers
 }
 
-HEADERS += gtest/gtest-death-test.h \
+HEADERS += \
+    gtest/gtest-death-test.h \
     gtest/gtest-internal-inl.h \
     gtest/gtest-message.h \
     gtest/gtest-param-test.h \
@@ -27,15 +28,17 @@ HEADERS += gtest/gtest-death-test.h \
     gtest/internal/gtest-death-test-internal.h \
     gtest/internal/gtest-filepath.h \
     gtest/internal/gtest-internal.h \
-    gtest/internal/gtest-linked_ptr.h \
     gtest/internal/gtest-param-util-generated.h \
     gtest/internal/gtest-param-util.h \
     gtest/internal/gtest-port.h \
     gtest/internal/gtest-string.h \
-    gtest/internal/gtest-tuple.h \
     gtest/internal/gtest-type-util.h \
-    test_global.h \
-    test_fakeserver.h
+    gtest/internal/gtest-port-arch.h \
+    gtest/internal/custom/gtest-port.h \
+    gtest/internal/custom/gtest-printers.h \
+    gtest/internal/custom/gtest.h \
+    gtest/proof/test_global.h \
+    gtest/proof/test_fakeserver.h
 
 SOURCES += gtest/gtest-all.cc \
     gtest/gtest-death-test.cc \
@@ -45,8 +48,8 @@ SOURCES += gtest/gtest-all.cc \
     gtest/gtest-test-part.cc \
     gtest/gtest-typed-test.cc \
     gtest/gtest.cc \
-    test_global.cpp \
-    test_fakeserver.cpp
+    gtest/proof/test_global.cpp \
+    gtest/proof/test_fakeserver.cpp
 
 PROOF_GTEST_PREFIX = $$(PROOF_PATH)
 isEmpty(PROOF_GTEST_PREFIX) {

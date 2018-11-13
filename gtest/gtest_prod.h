@@ -26,10 +26,10 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 //
-// Author: wan@google.com (Zhanyong Wan)
-//
-// Google C++ Testing Framework definitions useful in production code.
+// Google C++ Testing and Mocking Framework definitions useful in production code.
+// GOOGLETEST_CM0003 DO NOT DELETE
 
 // clazy:skip
 
@@ -42,17 +42,20 @@
 //
 // class MyClass {
 //  private:
-//   void MyMethod();
-//   FRIEND_TEST(MyClassTest, MyMethod);
+//   void PrivateMethod();
+//   FRIEND_TEST(MyClassTest, PrivateMethodWorks);
 // };
 //
 // class MyClassTest : public testing::Test {
 //   // ...
 // };
 //
-// TEST_F(MyClassTest, MyMethod) {
-//   // Can call MyClass::MyMethod() here.
+// TEST_F(MyClassTest, PrivateMethodWorks) {
+//   // Can call MyClass::PrivateMethod() here.
 // }
+//
+// Note: The test class must be in the same namespace as the class being tested.
+// For example, putting MyClassTest in an anonymous namespace will not work.
 
 #define FRIEND_TEST(test_case_name, test_name)\
 friend class test_case_name##_##test_name##_Test

@@ -13,13 +13,14 @@
                 "with_private": false
             },
             {
+                "comment": "This two steps are deprecated and will be removed soon",
                 "operation": "copy_file",
-                "from": "test_global.h",
+                "from": "gtest/proof/test_global.h",
                 "to": "include/gtest/test_global.h"
             },
             {
                 "operation": "copy_file",
-                "from": "test_fakeserver.h",
+                "from": "gtest/proof/test_fakeserver.h",
                 "to": "include/gtest/test_fakeserver.h"
             }
         ]
