@@ -50,7 +50,10 @@ set_target_properties(proof-gtest PROPERTIES
 target_include_directories(proof-gtest PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
 target_link_libraries(proof-gtest PUBLIC Qt5::Core Qt5::Network Qt5::Test)
 
-install(TARGETS proof-gtest EXPORT proof-gtest-targets LIBRARY DESTINATION lib)
+install(TARGETS proof-gtest EXPORT proof-gtest-targets
+    RUNTIME DESTINATION lib
+    LIBRARY DESTINATION lib
+)
 install(EXPORT proof-gtest-targets DESTINATION lib/cmake/3rdparty)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/proof-gtest-config.cmake DESTINATION lib/cmake/3rdparty)
 install(DIRECTORY gtest DESTINATION include FILES_MATCHING PATTERN "*.h")
