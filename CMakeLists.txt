@@ -46,6 +46,11 @@ set_target_properties(proof-gtest PROPERTIES
     POSITION_INDEPENDENT_CODE ON
     AUTOMOC ON
 )
+set_target_properties(proof-gtest PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+)
 
 target_include_directories(proof-gtest PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
 target_link_libraries(proof-gtest PUBLIC Qt5::Core Qt5::Network Qt5::Test)
