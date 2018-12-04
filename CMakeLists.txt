@@ -53,6 +53,7 @@ target_link_libraries(proof-gtest PUBLIC Qt5::Core Qt5::Network Qt5::Test)
 install(TARGETS proof-gtest EXPORT proof-gtest-targets
     RUNTIME DESTINATION lib
     LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
 )
 install(EXPORT proof-gtest-targets DESTINATION lib/cmake/3rdparty)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/proof-gtest-config.cmake DESTINATION lib/cmake/3rdparty)
