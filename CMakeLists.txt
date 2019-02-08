@@ -47,7 +47,7 @@ set_target_properties(proof-gtest PROPERTIES
     AUTOMOC ON
 )
 
-target_include_directories(proof-gtest PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
+target_include_directories(proof-gtest SYSTEM PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
 target_link_libraries(proof-gtest PUBLIC Qt5::Core Qt5::Network Qt5::Test)
 
 install(TARGETS proof-gtest EXPORT proof-gtest-targets
